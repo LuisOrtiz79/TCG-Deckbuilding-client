@@ -39,7 +39,6 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/decks' element={<Decks />} />
           <Route path='/decks/:deckId' element={<DeckInfo />} />
-          <Route path='/decks/create' element={<CreateDeck />} />
           <Route path='/comments' element={<Comments />} />
         </Route>
       </Routes>
