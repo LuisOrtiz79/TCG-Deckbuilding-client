@@ -22,14 +22,14 @@ const Signup = () => {
     e.preventDefault();
 
     post('/auth/signup', newUser)
-        .then((response) => {
-          storeToken(response.data.authToken);
-          authenticateUser();
-          navigate('/');
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .then((response) => {
+        storeToken(response.data.authToken);
+        authenticateUser();
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   };
 
   return (

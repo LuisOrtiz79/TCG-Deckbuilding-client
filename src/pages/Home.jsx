@@ -7,7 +7,7 @@ const Home = () => {
 
       <Randomizer />
     </div>
-  )
+  );
 };
 
 export default Home;

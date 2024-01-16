@@ -21,14 +21,14 @@ const Login = () => {
     e.preventDefault();
 
     post('/auth/login', user)
-        .then((response) => {
-          storeToken(response.data.authToken);
-          authenticateUser();
-          navigate('/');
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      .then((response) => {
+        storeToken(response.data.authToken);
+        authenticateUser();
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   };
 
   return (

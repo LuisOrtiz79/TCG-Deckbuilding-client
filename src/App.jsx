@@ -10,7 +10,6 @@ import Signup from './pages/Signup';
 import Decks from './pages/Decks';
 import Comments from './pages/Comments';
 import DeckInfo from './pages/DeckInfo';
-import CreateDeck from './pages/CreateDeck';
 
 function App() {
   const { getToken } = useContext(AuthContext);

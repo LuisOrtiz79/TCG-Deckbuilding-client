@@ -8,22 +8,22 @@ const Randomizer = () => {
 
   useEffect(() => {
     axios
-        .get(`${SERVER_URL}/decks/all`)
-        .then((response) => {
-            const decks = response.data;
-            const randomIndex = Math.floor(Math.random() * decks.length);
-            setDeck(decks[randomIndex]);
-        })
-        .catch((error) => console.log(error));
+      .get(`${SERVER_URL}/decks`)
+      .then((response) => {
+        const decks = response.data;
+        const randomIndex = Math.floor(Math.random() * decks.length);
+        setDeck(decks[randomIndex]);
+       })
+       .catch((error) => console.log(error));
 
     axios
-        .get(`${SERVER_URL}/cards`)
-        .then((response) => {
-            const cards = response.data;
-            const randomIndex = Math.floor(Math.random() * cards.length);
-            setCard(cards[randomIndex]);
-        })
-        .catch((error) => console.log(error));
+      .get(`${SERVER_URL}/cards`)
+      .then((response) => {
+        const cards = response.data;
+        const randomIndex = Math.floor(Math.random() * cards.length);
+        setCard(cards[randomIndex]);
+       })
+       .catch((error) => console.log(error));
   }, []);
 
   return (

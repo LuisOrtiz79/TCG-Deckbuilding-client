@@ -1,5 +1,5 @@
-import Deck from '../components/Deck';
-import CreateDeck from './CreateDeck';
+import AllDecks from '../components/AllDecks';
+import CreateDeck from '../components/CreateDeck';
 
 const Decks = () => {
   return (
@@ -8,9 +8,9 @@ const Decks = () => {
 
         <CreateDeck />
 
-        <Deck />
+        <AllDecks />
     </div>
-  )
+  );
 };
 
 export default Decks;

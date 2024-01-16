@@ -5,7 +5,7 @@ import { SERVER_URL } from '../services/SERVER_URL';
 import { AuthContext } from '../context/auth.context';
 import placeHolerImage from '../assets/cardBox.jpg';
 
-const Deck = () => {
+const AllDecks = () => {
   const [decks, setDecks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const { getUser } = useContext(AuthContext);
@@ -24,8 +24,8 @@ const Deck = () => {
 
   useEffect(() => {
     if(userId) {
-       axios
-        .get(`${SERVER_URL}/decks`, { params: { userId } })
+      axios
+        .get(`${SERVER_URL}/decks/user`, { params: { userId } })
         .then((response) => {
             setDecks(response.data);
         })
@@ -44,19 +44,14 @@ const Deck = () => {
     navigate('/');
   };
 
-  const getSingleDeck = (deckId) => {
+  const handleUpdate = (deckId) => {
     axios
       .get(`${SERVER_URL}/decks/${deckId}`)
       .then((response) => {
         setEditedDeck(response.data);
       })
-      .catch((error) => {
-        console.error('Error getting decks:', error);
-      });
-  };
-
-  const handleUpdate = (deckId) => {
-    getSingleDeck(deckId);
+      .catch((error) => console.error('Error getting decks:', error));
+    
     setIsEditing(true);
   };
 
@@ -87,55 +82,55 @@ const Deck = () => {
 
   return (
     <>{ !isEditing ?
+      <div>
+        <h2> List </h2>
+
         <div>
-            <h2> List </h2>
-
-            <div>
-                {decks && 
-                    decks.map((deck, index) => {
-                        return(
-                            <div key={index}>
-                                <Link to={`/decks/${deck._id}`}>
-                                    <div>
-                                        <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                                        <span>{deck.name}</span>
-                                    </div>
-                                </Link>
-                                <button onClick={() => handleUpdate(deck._id)}>Update</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
-                            </div>
-                        )
-                })}
-            </div>
+          {decks && 
+            decks.map((deck, index) => {
+              return(
+                <div key={index}>
+                  <Link to={`/decks/${deck._id}`}>
+                    <div>
+                      <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                      <span>{deck.name}</span>
+                    </div>
+                  </Link>
+                  <button onClick={() => handleUpdate(deck._id)}>Update</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
+                </div>
+              )
+          })}
         </div>
-        :
-        <div>
-            <form onSubmit={editDeck}>
-                <h2>Create Deck</h2>
+      </div>
+      :
+      <div>
+        <form onSubmit={editDeck}>
+          <h2>Update Deck</h2>
 
-                <label>
-                Deck Name
-                <input type='text' name='name' value={editedDeck.name} onChange={(e) => handleTextInput(e)} />
-                </label>
+          <label>
+            Deck Name
+            <input type='text' name='name' value={editedDeck.name} onChange={(e) => handleTextInput(e)} />
+          </label>
 
-                <br />
+          <br />
 
-                <label>
-                TCG Game
+          <label>
+            TCG Game
 
-                <select name='game' value={editedDeck.game} onChange={(e) => handleTextInput(e)}>
-                    <option value=''>-- Select Game --</option>
-                    <option value='Yu-Gi-Oh'>Yu-Gi-Oh</option>
-                    <option value="MTG">MTG</option>
-                </select>
-                </label>
+            <select name='game' value={editedDeck.game} onChange={(e) => handleTextInput(e)}>
+              <option value=''>-- Select Game --</option>
+              <option value='Yu-Gi-Oh'>Yu-Gi-Oh</option>
+              <option value="MTG">MTG</option>
+            </select>
+          </label>
 
-                <button type='submit'>Update Deck</button>
-            </form> 
-        </div>
-        }
+          <button type='submit'>Update Deck</button>
+        </form>
+        <button onClick={() => setIsEditing(false)}>Back</button>
+      </div>
+    }
     </>
-
   );
 };
 
-export default Deck;
+export default AllDecks;
