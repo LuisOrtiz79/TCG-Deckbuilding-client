@@ -25,7 +25,7 @@ const Deck = () => {
   useEffect(() => {
     if(userId) {
        axios
-        .get(`${SERVER_URL}/decks`, { params: { userId } }) // Fix this later
+        .get(`${SERVER_URL}/decks`, { params: { userId } })
         .then((response) => {
             setDecks(response.data);
         })
@@ -38,7 +38,7 @@ const Deck = () => {
     axios
       .delete(`${SERVER_URL}/decks/${deckId}`)
       .then((response) => {
-        console.log("Deleted appointment ===>", response.data)
+        console.log('Deleted deck ===>', response.data)
       })
       .catch((error) => console.log(error));
     navigate('/');
@@ -51,7 +51,7 @@ const Deck = () => {
         setEditedDeck(response.data);
       })
       .catch((error) => {
-        console.error('Error getting details:', error);
+        console.error('Error getting decks:', error);
       });
   };
 
@@ -73,7 +73,7 @@ const Deck = () => {
         side: []
       })
       .then((response) => {
-        console.log("Updated appointment ===>", response.data);
+        console.log('Updated Deck ===>', response.data);
         navigate('/');
       })
       .catch((error) => console.log(error));
