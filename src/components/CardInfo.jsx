@@ -29,7 +29,7 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
         .catch((error) => console.log(error));
     }
 
-    if(main > 60 && extra > 15 && type !== 'skill'){
+    if(main > 60 && extra > 15  && side > 15 && type !== 'skill'){
       axios
         .put(`${SERVER_URL}/decks/side/${deckId}`, { cardId })
         .then((response) => {
@@ -38,7 +38,19 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
         })
         .catch((error) => console.log(error));
     }
-  }
+  };
+
+  const addSideCard = async (cardId, type) => {
+    if(side <= 15 && type !== 'skill'){
+      axios
+        .put(`${SERVER_URL}/decks/side/${deckId}`, { cardId })
+        .then((response) => {
+          console.log(response.data);
+          getDeckInfo();
+        })
+        .catch((error) => console.log(error));
+    }
+  };
 
   useEffect(() => {
     axios
@@ -55,18 +67,25 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
     <div>
       <Searchbar searchCard={searchCard} setSearchCard={setSearchCard}/>
 
+      <button>Sort by name</button>
+      <button>Sort by type</button>
+
       {cards && filtered.slice(pages.previous, pages.nextPages).map((cards) => (
         <div key={cards._id}>
           <img src={cards.card_images[0].image_url} alt='cardBox' width={'60vw'} height={'60vh'}/> 
           <p>{cards.name}</p>
-          <button onClick={() => addCard(cards._id, cards.frameType)}>+</button>
+          {cards.frameType === 'fusion' || cards.frameType === 'synchro' || cards.frameType === 'xyz' || cards.frameType === 'link' ?
+            <button onClick={() => addCard(cards._id, cards.frameType)}>extra</button>
+            :
+            <button onClick={() => addCard(cards._id, cards.frameType)}>main</button>  
+          }
+          <button onClick={() => addSideCard(cards._id, cards.frameType)}>side</button>  
         </div>
       ))}
 
       <div>
-        <button onClick={() => pages.nextPages >= cards.length + 20 ? alert("no pages ahead") : setPages(prev => ({previous: prev.previous + 20, nextPages: prev.nextPages + 20 }))}> Next </button>
-        <button onClick={() => pages.previous === 0 ? alert("No pages to this side bruh") : setPages(prev => ({previous: prev.previous - 20, nextPages: prev.nextPages - 20 }))}> Previous </button>
-
+        <button onClick={() => pages.nextPages >= cards.length + 20 ? alert('This is the last page') : setPages(prev => ({previous: prev.previous + 20, nextPages: prev.nextPages + 20 }))}> Next </button>
+        <button onClick={() => pages.previous === 0 ? alert('This is the first page') : setPages(prev => ({previous: prev.previous - 20, nextPages: prev.nextPages - 20 }))}> Previous </button>
       </div>
     </div>
   );

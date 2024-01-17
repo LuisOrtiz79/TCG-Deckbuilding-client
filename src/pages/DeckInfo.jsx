@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { generatePath, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import CardInfo from '../components/CardInfo';
@@ -34,14 +34,20 @@ const DeckInfo = () => {
   const handleExtraDelete = (cardId) => {
     axios
       .put(`${SERVER_URL}/decks/removeextra/${deckId}`, { cardId })
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        console.log(response.data);
+        getDeckInfo();
+      })
       .catch((error) => console.log(error));
   };
 
   const handleSideDelete = (cardId) => {
     axios
       .put(`${SERVER_URL}/decks/removeside/${deckId}`, { cardId })
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        console.log(response.data);
+        getDeckInfo();
+      })
       .catch((error) => console.log(error));
   };
 
@@ -50,7 +56,10 @@ const DeckInfo = () => {
       <div className='deckInfo'>
         <h1>Deck Info</h1>
         <h2>Deck: {deck.name}</h2>
-          
+        
+        <button>Sort by name</button>
+        <button>Sort by type</button>
+
         <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
         {deck.main && deck.main.map((card, index) => {
           return (

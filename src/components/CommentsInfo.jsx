@@ -1,93 +1,87 @@
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useState, useEffect, useContext} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import { AuthContext } from '../context/auth.context';
+import placeHolerImage from '../assets/cardBox.jpg';
 
 const CommentInfo = () => {
-  const [comment, setComment] = useState({
-    user: '',
-    deck: '',
-    comments: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [conversation, setConversation] = useState([]);
-
+  const [decks, setDecks] = useState([]);
+  const [userDecks, setUserDecks] = useState([])
   const { getUser } = useContext(AuthContext);
-
+  
   const userId = getUser();
-  const navigate = useNavigate();
 
-  const handleTextInput = (e) => {
-    setComment((prev) => ({...prev, [e.target.name]: e.target.value}));
-  };
+  const getUserDecks = () => {
+    if(userId) {
+      axios
+        .get(`${SERVER_URL}/decks/user`, { params: { userId } })
+        .then((response) => {
+          setUserDecks(response.data);
+        })
+        .catch((error) => console.log(error)); 
+    }
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const getDecks = () => {
     axios
-      .post(`${SERVER_URL}/comments`, {
-        user: userId,
-        deck: comment.deck,
-        comments: comment.comment
-      })
+      .get(`${SERVER_URL}/decks`)
       .then((response) => {
-        console.log(response.data);
-        setComment({
-          user: '',
-          deck: '',
-          comments: ''
-        });
+        setDecks(response.data);
       })
-      .catch((error) => console.log(error))
-  };
+      .catch((error) => console.log(error)); 
+  }
 
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${SERVER_URL}/comments`);
-        setConversation(response.data);
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchComments();
+    getDecks();
+    getUserDecks();
   }, []);
 
+  let filtered = decks.filter((deck) => deck.user._id !== userId);
+
   return (
-    <div>
+    <>
       <div>
-        {/* Display comments */}
-        {loading ? (
-          <p>Loading comments...</p>
-        ) : (
-          conversation.map((comment) => (
-            <div key={comment._id}>
-              <p>{comment.user.username}</p>
-              <p>{comment.Comment}</p>
-            </div>
-          ))
-        )}
+        <h2>All Decks:</h2>
+        
+        <div>
+            {decks && 
+              filtered.map((deck, index) => {
+                return(
+                  <div key={index}>
+                    <Link to={`/mycomments/${deck._id}`}>
+                      <div>
+                        <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                        <span>{deck.name}</span>
+                      </div>
+                    </Link>
+                  </div>
+                );
+            })}
+          </div>
       </div>
 
-      {/* Form for adding new comments */}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Comments
-          <textarea
-            name="comments"
-            value={comment.comments}
-            onChange={handleTextInput}
-          />
-        </label>
+      <div>
+        <h2>My Decks:</h2>
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        <div>
+            {userDecks && 
+              userDecks.map((deck, index) => {
+                return(
+                  <div key={index}>
+                    <Link to={`/comments/${deck._id}`}>
+                      <div>
+                        <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                        <span>{deck.name}</span>
+                      </div>
+                    </Link>
+                  </div>
+                )
+            })}
+          </div>
+      </div>
+    </>
+    
   );
 };
 

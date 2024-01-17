@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import { AuthContext } from '../context/auth.context';
 
-const CreateDeck = () => {
+const CreateDeck = ({ setIsCreating }) => {
   const { getUser } = useContext(AuthContext);
 
   const userId = getUser();
@@ -44,6 +44,8 @@ const CreateDeck = () => {
         });
       })
       .catch((error) => console.log(error));
+
+    setIsCreating(false);
   };
 
   return (

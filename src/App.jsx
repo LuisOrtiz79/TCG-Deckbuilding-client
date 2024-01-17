@@ -10,6 +10,8 @@ import Signup from './pages/Signup';
 import Decks from './pages/Decks';
 import Comments from './pages/Comments';
 import DeckInfo from './pages/DeckInfo';
+import OtherComments from './components/OtherComments';
+import MyComments from './components/MyComments';
 
 function App() {
   const { getToken } = useContext(AuthContext);
@@ -39,6 +41,8 @@ function App() {
           <Route path='/decks' element={<Decks />} />
           <Route path='/decks/:deckId' element={<DeckInfo />} />
           <Route path='/comments' element={<Comments />} />
+          <Route path='/comments/:deckId' element={<OtherComments />} />
+          <Route path='/mycomments/:deckId' element={<MyComments />} />
         </Route>
       </Routes>
     </div>
