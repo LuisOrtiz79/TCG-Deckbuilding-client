@@ -62,6 +62,29 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
       .catch((error) => console.log(error));
   }
 
+  const queryChange = () => {
+    clearTimeout(filterTimeout)
+  
+      if (searchCard) {
+          filterTimeout = setTimeout(() => {
+              axios
+              .get(`${SERVER_URL}/cards/search/${searchCard}`)
+              .then((response) => {
+                  console.log("Found Cards ===>", response.data)
+                  setCards(response.data)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          }, 500)
+      }
+  }
+
+  useEffect(() => {
+    queryChange()
+  }, [searchCard])
+  
+
   useEffect(() => {
     // axios
     //   .get(`${SERVER_URL}/cards`)
