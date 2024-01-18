@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import Searchbar from './Searchbar';
-import { response } from '../../../TCG-Deckbuilding-server/app';
 
 const CardInfo = ({main, extra, side, getDeckInfo}) => {
   const [cards, setCards] = useState([]);
