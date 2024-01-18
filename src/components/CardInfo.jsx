@@ -62,6 +62,8 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
       .catch((error) => console.log(error));
   }
 
+  let filterTimeout
+
   const queryChange = () => {
     clearTimeout(filterTimeout)
   
