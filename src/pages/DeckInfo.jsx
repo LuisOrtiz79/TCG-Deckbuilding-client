@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import CardInfo from '../components/CardInfo';
@@ -7,6 +7,8 @@ import CardInfo from '../components/CardInfo';
 const DeckInfo = () => {
   const [deck, setDeck] = useState([]);
   const { deckId } = useParams();
+
+  const navigate = useNavigate();
 
   const getDeckInfo = () =>{
     axios
@@ -89,6 +91,8 @@ const DeckInfo = () => {
             </div>
           )
         })}
+
+        <button onClick={() => navigate(-1)}>Back</button>
       </div>
 
       <div className='searchSide'>

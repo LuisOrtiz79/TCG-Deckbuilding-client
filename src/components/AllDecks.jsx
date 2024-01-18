@@ -82,9 +82,6 @@ const AllDecks = () => {
 
   return (
     <>{ !isEditing ?
-      <div>
-        <h2> List </h2>
-
         <div>
           {decks && 
             decks.map((deck, index) => {
@@ -96,12 +93,11 @@ const AllDecks = () => {
                       <span>{deck.name}</span>
                     </div>
                   </Link>
-                  <button onClick={() => handleUpdate(deck._id)}>Update</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
+                  <button onClick={() => handleUpdate(deck._id)}>Edit</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
                 </div>
               )
           })}
         </div>
-      </div>
       :
       <div>
         <form onSubmit={editDeck}>
@@ -124,7 +120,7 @@ const AllDecks = () => {
             </select>
           </label>
 
-          <button type='submit'>Update Deck</button>
+          <button type='submit'>Edit</button>
         </form>
         <button onClick={() => setIsEditing(false)}>Back</button>
       </div>

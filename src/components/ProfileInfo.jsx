@@ -86,7 +86,7 @@ const ProfileInfo = () => {
             <img src={userProfile.photo} alt='profile-photo' width={'100vw'} height={'100vh'} />
             <p>Username: {userProfile.username}</p>
             <p>Email: {userProfile.email}</p>
-            <button onClick={() => handleUpdate()}>Update</button>
+            <button onClick={() => handleUpdate()}>Edit</button>
           </>
         )}
       </div>

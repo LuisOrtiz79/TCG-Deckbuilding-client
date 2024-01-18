@@ -27,47 +27,62 @@ const Randomizer = () => {
   }, []);
 
   return (
-    <div>
-        <h2>Random Card:</h2>
-        {card && (
-            <div>
-                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-            </div>
-        )}
+    <div className='randomizerContainer'>
+        <div className='randomDeck'>
+           <h2>Deck:</h2>
+            {deck && (
+                <div>
+                    <h2>{deck.name}</h2>
+            
+                    <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
+                    {deck.main && deck.main.map((card, index) => {
+                        return (
+                            <div className='cards'>
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            </div>
+                        )
+                    })}
+            
+                    <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+                    {deck.extra && deck.extra.map((card, index) => {
+                        return (
+                            <div className='cards'>
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            </div>
+                        )
+                    })}
+            
+                    <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+                    {deck.side && deck.side.map((card, index) => {
+                        return (
+                            <div className='cards'>
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            </div>
+                            
+                        )
+                    })}
+                </div>
+            )}
+        </div>
 
-        <h2>Random Deck:</h2>
-        {deck && (
-            <div>
-                <h2>Deck: {deck.name}</h2>
-          
-                <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-                {deck.main && deck.main.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
-        
-                <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-                {deck.extra && deck.extra.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
-        
-                <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-                {deck.side && deck.side.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
-            </div>
-        )}
+        <div className='randomCard'>
+            <h2>Card:</h2>
+
+            {card && (
+                <div>
+                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                    <p>{card.name}</p>
+                    <p>{card.type} {card.race}</p>
+                    <p>{card.desc}</p>
+                </div>
+            )}
+        </div>
     </div>
   );
 };

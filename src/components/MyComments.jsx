@@ -70,6 +70,17 @@ const MyComments = () => {
     getCommentInfo();
   };
 
+  const handleDelete = (CommentId) => {
+    axios
+      .delete(`${SERVER_URL}/comments/${CommentId}`)
+      .then((response) => {
+        console.log('Deleted Comment ===>', response.data)
+      })
+      .catch((error) => console.log(error));
+  }
+
+  const handleUpdate = (CommentId) => {} //FIx tomorrow
+
   return (
     <div>{!isCreating ? (
       <>
@@ -113,6 +124,8 @@ const MyComments = () => {
                     <div key={comment._id}>
                         <p>{comment.user.username}</p>
                         <p>{comment.comments}</p>
+                        <button onClick={() => handleDelete(comment._id)}>Update</button>
+                        <button onClick={() => handleUpdate(comment._id)}>Delete</button>
                     </div>
                 )
             })}
@@ -126,7 +139,7 @@ const MyComments = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Comments
-                    <textarea name="comments" onChange={handleTextInput} />
+                    <textarea name="comments" value={addComments.comments} onChange={handleTextInput} />
                 </label>
 
                 <button type="submit">Submit</button>
