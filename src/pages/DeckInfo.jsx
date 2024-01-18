@@ -54,7 +54,7 @@ const DeckInfo = () => {
   };
 
   return (
-    <>
+    <div className='infoContainer'>
       <div className='deckInfo'>
         <h1>Deck Info</h1>
         <h2>Deck: {deck.name}</h2>
@@ -63,34 +63,42 @@ const DeckInfo = () => {
         <button>Sort by type</button>
 
         <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-        {deck.main && deck.main.map((card, index) => {
-          return (
-            <div key={index}>
-              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-              <button onClick={() => handleMainDelete(card._id)}>Remove</button>
-            </div>
-          )
-        })}
+        <div className='mainContainer'>
+          {deck.main && deck.main.map((card, index) => {
+            return (
+              <div key={index} className='cards' data-aos='fade-up'>
+                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                <button onClick={() => handleMainDelete(card._id)}>Remove</button>
+              </div>
+            )
+          })}
+        </div>
+        
 
         <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-        {deck.extra && deck.extra.map((card, index) => {
-          return (
-            <div key={index}>
-              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-              <button onClick={() => handleExtraDelete(card._id)}>Remove</button>
-            </div>
-          )
-        })}
+        <div className='extraContainer'>
+          {deck.extra && deck.extra.map((card, index) => {
+            return (
+              <div key={index} className='cards' data-aos='fade-up'>
+                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                <button onClick={() => handleExtraDelete(card._id)}>Remove</button>
+              </div>
+            )
+          })}
+        </div>
+
 
         <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-        {deck.side && deck.side.map((card, index) => {
-          return (
-            <div key={index}>
-              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-              <button onClick={() => handleSideDelete(card._id)}>Remove</button>
-            </div>
-          )
-        })}
+        <div className='sideContainer'>
+          {deck.side && deck.side.map((card, index) => {
+            return (
+              <div key={index} className='cards' data-aos="fade-up">
+                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                <button onClick={() => handleSideDelete(card._id)}>Remove</button>
+              </div>
+            )
+          })}
+        </div>
 
         <button onClick={() => navigate(-1)}>Back</button>
       </div>
@@ -98,7 +106,7 @@ const DeckInfo = () => {
       <div className='searchSide'>
         <CardInfo main={deck.main?.length} extra={deck.extra?.length} side={deck.side?.length}  getDeckInfo={getDeckInfo}/>
       </div>
-    </>
+    </div>
   );
 };
 

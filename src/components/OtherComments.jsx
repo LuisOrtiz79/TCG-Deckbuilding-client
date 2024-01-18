@@ -31,31 +31,40 @@ const OtherComments = () => {
                 <h2>Deck: {deck.name}</h2>
               
                 <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-                {deck.main && deck.main.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
+                <div className='mainContainer'>
+                    {deck.main && deck.main.map((card, index) => {
+                        return (
+                            <div key={index}>
+                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                            </div>
+                        )
+                    })}
+                </div>
+                
               
                 <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-                {deck.extra && deck.extra.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
+                <div className='extraContainer'>
+                    {deck.extra && deck.extra.map((card, index) => {
+                        return (
+                            <div key={index}>
+                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                            </div>
+                        )
+                    })}
+                </div>
+                
               
                 <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-                {deck.side && deck.side.map((card, index) => {
-                    return (
-                        <div key={index}>
-                            <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        </div>
-                    )
-                })}
+                <div className='sideContainer'>
+                    {deck.side && deck.side.map((card, index) => {
+                        return (
+                            <div key={index}>
+                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                            </div>
+                        )
+                    })}
+                </div>
+                
             </div>
         )}
   

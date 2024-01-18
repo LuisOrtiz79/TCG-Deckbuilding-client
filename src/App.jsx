@@ -2,6 +2,8 @@ import './App.css'
 import { useContext } from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { AuthContext } from './context/auth.context';
+import AOS from  'aos';
+import 'aos/dist/aos.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -12,6 +14,13 @@ import Comments from './pages/Comments';
 import DeckInfo from './pages/DeckInfo';
 import OtherComments from './components/OtherComments';
 import MyComments from './components/MyComments';
+
+AOS.init({
+  offset: 120, // offset (in px) from the original trigger point
+  delay: 0, // values from 0 to 3000, with step 50ms
+  duration: 1500, // values from 0 to 3000, with step 50ms
+  easing: 'ease' 
+})
 
 function App() {
   const { getToken } = useContext(AuthContext);

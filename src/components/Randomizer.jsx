@@ -35,38 +35,44 @@ const Randomizer = () => {
                     <h2>{deck.name}</h2>
             
                     <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-                    {deck.main && deck.main.map((card, index) => {
-                        return (
-                            <div className='cards'>
-                                <div key={index}>
-                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                    <div className='mainContainer'>
+                      {deck.main && deck.main.map((card, index) => {
+                            return (
+                                <div className='cards' data-aos='flip-right'>
+                                    <div key={index}>
+                                        <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}  
+                    </div>
+                    
             
                     <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-                    {deck.extra && deck.extra.map((card, index) => {
-                        return (
-                            <div className='cards'>
-                                <div key={index}>
-                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                    <div className='extraContainer'>
+                        {deck.extra && deck.extra.map((card, index) => {
+                            return (
+                                <div className='cards' data-aos='flip-right'>
+                                    <div key={index}>
+                                        <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
             
                     <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-                    {deck.side && deck.side.map((card, index) => {
-                        return (
-                            <div className='cards'>
-                                <div key={index}>
-                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                                </div>
-                            </div>
-                            
-                        )
-                    })}
+                    <div className='sideContainer'>
+                        {deck.side && deck.side.map((card, index) => {
+                            return (
+                                <div className='cards' data-aos='flip-right'>
+                                    <div key={index}>
+                                        <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                    </div>
+                                </div> 
+                            )
+                        })}
+                    </div>
                 </div>
             )}
         </div>
@@ -75,7 +81,7 @@ const Randomizer = () => {
             <h2>Card:</h2>
 
             {card && (
-                <div>
+                <div data-aos='fade-down'>
                     <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
                     <p>{card.name}</p>
                     <p>{card.type} {card.race}</p>

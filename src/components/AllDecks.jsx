@@ -13,10 +13,7 @@ const AllDecks = () => {
   const [editedDeck, setEditedDeck] = useState({
     user: '',
     name: '',
-    game: '',
-    main: [],
-    extra: [],
-    side: []
+    game: ''
   });
 
   const userId = getUser();
@@ -62,10 +59,7 @@ const AllDecks = () => {
       .put(`${SERVER_URL}/decks/${editedDeck._id}`, {
         user: userId,
         name: editedDeck.name,
-        game: editedDeck.game,
-        main: [],
-        extra: [],
-        side: []
+        game: editedDeck.game
       })
       .then((response) => {
         console.log('Updated Deck ===>', response.data);
@@ -82,13 +76,13 @@ const AllDecks = () => {
 
   return (
     <>{ !isEditing ?
-        <div>
+        <div className='deckContainer'>
           {decks && 
             decks.map((deck, index) => {
               return(
                 <div key={index}>
                   <Link to={`/decks/${deck._id}`}>
-                    <div>
+                    <div className='decks'>
                       <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
                       <span>{deck.name}</span>
                     </div>
@@ -100,9 +94,8 @@ const AllDecks = () => {
         </div>
       :
       <div>
-        <form onSubmit={editDeck}>
-          <h2>Update Deck</h2>
-
+        <h2>Update Deck</h2>
+        <form onSubmit={editDeck} className='formContainer'>
           <label>
             Deck Name
             <input type='text' name='name' value={editedDeck.name} onChange={(e) => handleTextInput(e)} />

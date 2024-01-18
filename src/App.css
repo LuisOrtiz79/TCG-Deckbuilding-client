@@ -41,6 +41,7 @@
   color: #888;
 } */
 
+/* app css */
 .App {
   max-width: 1280px;
   margin: 0 auto;
@@ -48,6 +49,7 @@
   text-align: center;
 }
 
+/* navbar css */
 .navbar{
   display: flex;
   justify-content: space-evenly;
@@ -70,6 +72,50 @@
   width: 75%;
 }
 
+/* all deck info css */
+.mainContainer,
+.extraContainer,
+.sideContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .cards {
-  display: grid;
+  margin: 0.5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/* all deck css */
+.deckContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.decks {
+  margin: 2vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/* deck info css */
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.deckInfo {
+  width: 70%;
+}
+
+.searchSide {
+  width: 30%;
+}
+
+/* form css */
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

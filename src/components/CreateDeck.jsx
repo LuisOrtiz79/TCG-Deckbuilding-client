@@ -50,9 +50,8 @@ const CreateDeck = ({ setIsCreating }) => {
 
   return (
     <div className='createDeck'>
-      <form onSubmit={handleSubmit}>
-        <h2>Create Deck</h2>
-
+      <h2>Create Deck</h2>
+      <form onSubmit={handleSubmit} className='formContainer'>
         <label>
           Deck Name
           <input type='text' name='name' value={newDeck.name} onChange={handleTextInput} />
