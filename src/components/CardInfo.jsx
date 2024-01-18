@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import Searchbar from './Searchbar';
+import { response } from '../../../TCG-Deckbuilding-server/app';
 
 const CardInfo = ({main, extra, side, getDeckInfo}) => {
   const [cards, setCards] = useState([]);
@@ -52,14 +53,26 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
     }
   };
 
-  useEffect(() => {
+  const getCardPage = () => {
     axios
-      .get(`${SERVER_URL}/cards`)
+      .get(`${SERVER_URL}/cards/new/${pages.previous}/${pages.nextPages}`)
       .then((response) => {
-          setCards(response.data);
+        console.log(response.data);
+        setCards(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }
+
+  useEffect(() => {
+    // axios
+    //   .get(`${SERVER_URL}/cards`)
+    //   .then((response) => {
+    //       setCards(response.data);
+    //   })
+    //   .catch((error) => console.log(error));
+
+    getCardPage();
+  }, [pages]);
 
   let filtered = searchCard ? cards.filter((card) => card.name.toLowerCase().includes(searchCard.toLowerCase())) : cards;
 
