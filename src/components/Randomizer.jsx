@@ -35,6 +35,7 @@ const Randomizer = () => {
                     <h2>{deck.name}</h2>
             
                     <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
+
                     <div className='mainContainer'>
                       {deck.main && deck.main.map((card, index) => {
                             return (
@@ -47,8 +48,8 @@ const Randomizer = () => {
                         })}  
                     </div>
                     
-            
                     <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+
                     <div className='extraContainer'>
                         {deck.extra && deck.extra.map((card, index) => {
                             return (
@@ -62,6 +63,7 @@ const Randomizer = () => {
                     </div>
             
                     <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+                    
                     <div className='sideContainer'>
                         {deck.side && deck.side.map((card, index) => {
                             return (

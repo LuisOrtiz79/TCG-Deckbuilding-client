@@ -43,6 +43,7 @@ const ProfileInfo = () => {
     getStudent();
   }, [userId]);
 
+  // Updates the user
   const editUser = (e) => {
     e.preventDefault();
     
@@ -66,6 +67,7 @@ const ProfileInfo = () => {
     setEditedUser((prev) => ({...prev, [e.target.name]: e.target.value}));
   };
 
+  // Gets the user so that it can be updated
   const handleUpdate = () => {
     axios
       .get(`${SERVER_URL}/users/${userId}`,
@@ -80,14 +82,16 @@ const ProfileInfo = () => {
   
   return (
     <>{ !isEditing ?
-      <div>
+      <div className='userProfile'>
         {userProfile && (
-          <>
+          <div className='userContainer'>
             <img src={userProfile.photo} alt='profile-photo' width={'100vw'} height={'100vh'} />
-            <p>Username: {userProfile.username}</p>
-            <p>Email: {userProfile.email}</p>
-            <button onClick={() => handleUpdate()}>Edit</button>
-          </>
+            <div>
+              <p>Username: {userProfile.username}</p>
+              <p>Email: {userProfile.email}</p>
+              <button onClick={() => handleUpdate()}>Edit</button>
+            </div>
+          </div>
         )}
       </div>
       :

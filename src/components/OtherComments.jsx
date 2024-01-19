@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 
@@ -7,6 +7,8 @@ const OtherComments = () => {
     const [deck, setDeck] = useState([]);
     const [comments, setComments] = useState([]);
     const { deckId } = useParams();
+
+    const navigate = useNavigate();
   
     useEffect(() => {
       axios
@@ -31,6 +33,7 @@ const OtherComments = () => {
                 <h2>Deck: {deck.name}</h2>
               
                 <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
+
                 <div className='mainContainer'>
                     {deck.main && deck.main.map((card, index) => {
                         return (
@@ -43,6 +46,7 @@ const OtherComments = () => {
                 
               
                 <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+
                 <div className='extraContainer'>
                     {deck.extra && deck.extra.map((card, index) => {
                         return (
@@ -55,6 +59,7 @@ const OtherComments = () => {
                 
               
                 <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+
                 <div className='sideContainer'>
                     {deck.side && deck.side.map((card, index) => {
                         return (
@@ -65,20 +70,23 @@ const OtherComments = () => {
                     })}
                 </div>
                 
+                <button onClick={() => navigate(-1)}>Back</button>
             </div>
         )}
   
         <div>
             <h2>User Comments:</h2>
-            {comments.map((comment) => (
-                <div key={comment._id}>
-                    <p>{comment.user.username}</p>
-                    <p>{comment.Comment}</p>
-                </div>
-            ))}
+
+            <div className='commentContainer'>
+                {comments.map((comment) => (
+                    <div key={comment._id}>
+                        <p>{comment.user.username}: {comment.comments}</p>
+                    </div>
+                ))}  
+            </div> 
         </div>
       </div>
     );
-  };
+};
 
 export default OtherComments;

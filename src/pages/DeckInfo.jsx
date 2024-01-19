@@ -9,7 +9,8 @@ const DeckInfo = () => {
   const { deckId } = useParams();
 
   const navigate = useNavigate();
-
+  
+  // Get all info inside the deck
   const getDeckInfo = () =>{
     axios
       .get(`${SERVER_URL}/decks/${deckId}`)
@@ -23,6 +24,7 @@ const DeckInfo = () => {
     getDeckInfo();
   }, []);
 
+  // Based on the card id it deletes it from the main deck
   const handleMainDelete = (cardId) => {
     axios
       .put(`${SERVER_URL}/decks/removemain/${deckId}`, { cardId })
@@ -33,6 +35,7 @@ const DeckInfo = () => {
       .catch((error) => console.log(error));
   };
 
+  // Based on the card id it deletes it from the extra deck
   const handleExtraDelete = (cardId) => {
     axios
       .put(`${SERVER_URL}/decks/removeextra/${deckId}`, { cardId })
@@ -43,6 +46,7 @@ const DeckInfo = () => {
       .catch((error) => console.log(error));
   };
 
+  // Based on the card id it deletes it from the side deck
   const handleSideDelete = (cardId) => {
     axios
       .put(`${SERVER_URL}/decks/removeside/${deckId}`, { cardId })
@@ -74,7 +78,6 @@ const DeckInfo = () => {
           })}
         </div>
         
-
         <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
         <div className='extraContainer'>
           {deck.extra && deck.extra.map((card, index) => {
@@ -86,7 +89,6 @@ const DeckInfo = () => {
             )
           })}
         </div>
-
 
         <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
         <div className='sideContainer'>

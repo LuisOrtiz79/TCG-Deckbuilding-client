@@ -10,7 +10,9 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
   const [pages, setPages] = useState({previous: 0, nextPages: 20})
   const { deckId } = useParams();
 
+  // Inserts the a card apropiate to the deck
   const addCard = async (cardId, type) => {
+    // Adds to the extra deck
     if(extra <= 15 && type === 'fusion' || type === 'synchro' || type === 'xyz' || type === 'link') {
       axios
         .put(`${SERVER_URL}/decks/extra/${deckId}`, { cardId })
@@ -19,7 +21,7 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
           getDeckInfo();
         })
         .catch((error) => console.log(error));
-    }else if (main <= 60 && type !== 'fusion' || type !== 'synchro' || type !== 'xyz' || type !== 'link' || type !== 'skill') {
+    }else if (main <= 60 && type !== 'fusion' || type !== 'synchro' || type !== 'xyz' || type !== 'link') { // Adds to the main deck
       axios
         .put(`${SERVER_URL}/decks/main/${deckId}`, { cardId })
         .then((response) => {
@@ -29,7 +31,8 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
         .catch((error) => console.log(error));
     }
 
-    if(main > 60 && extra > 15  && side > 15 && type !== 'skill'){
+    // Adds to the side deck in the case that the other reaches the max
+    if(main > 60 && extra > 15  && side > 15){
       axios
         .put(`${SERVER_URL}/decks/side/${deckId}`, { cardId })
         .then((response) => {
@@ -40,6 +43,7 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
     }
   };
 
+  // Adds to the side deck
   const addSideCard = async (cardId, type) => {
     if(side <= 15 && type !== 'skill'){
       axios
@@ -52,6 +56,7 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
     }
   };
 
+  // Gets a limited amount of cards as no to overload the server
   const getCardPage = () => {
     axios
       .get(`${SERVER_URL}/cards/new/${pages.previous}/${pages.nextPages}`)
@@ -62,24 +67,23 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
       .catch((error) => console.log(error));
   }
 
+  // Returns the search of the cards that are found after the user stops writting
   let filterTimeout
 
   const queryChange = () => {
     clearTimeout(filterTimeout)
   
-      if (searchCard) {
-          filterTimeout = setTimeout(() => {
-              axios
-              .get(`${SERVER_URL}/cards/search/${searchCard}`)
-              .then((response) => {
-                  console.log("Found Cards ===>", response.data)
-                  setCards(response.data)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          }, 500)
-      }
+    if (searchCard) {
+      filterTimeout = setTimeout(() => {
+        axios
+          .get(`${SERVER_URL}/cards/search/${searchCard}`)
+          .then((response) => {
+            console.log("Found Cards ===>", response.data)
+            setCards(response.data)
+          })
+          .catch((err) => console.log(err) )
+      }, 500)
+    }
   }
 
   useEffect(() => {
@@ -108,18 +112,20 @@ const CardInfo = ({main, extra, side, getDeckInfo}) => {
       <button>Sort by type</button>
 
       {cards && filtered.slice(pages.previous, pages.nextPages).map((cards) => (
-        <div key={cards._id}>
+        <div key={cards._id} className='searchCardContainer'>
           <img src={cards.card_images[0].image_url} alt='cardBox' width={'60vw'} height={'60vh'}/> 
           <p>{cards.name}</p>
-          {cards.frameType === 'fusion' || cards.frameType === 'synchro' || cards.frameType === 'xyz' || cards.frameType === 'link' ?
-            <button onClick={() => addCard(cards._id, cards.frameType)}>extra</button>
-            :
-            <button onClick={() => addCard(cards._id, cards.frameType)}>main</button>  
-          }
-          <button onClick={() => addSideCard(cards._id, cards.frameType)}>side</button>  
+          <div className='searchButtonContainer'>
+            {cards.frameType === 'fusion' || cards.frameType === 'synchro' || cards.frameType === 'xyz' || cards.frameType === 'link' ?
+              <button onClick={() => addCard(cards._id, cards.frameType)}>extra</button>
+              :
+              <button onClick={() => addCard(cards._id, cards.frameType)}>main</button>  
+            }
+            <button onClick={() => addSideCard(cards._id, cards.frameType)}>side</button> 
+          </div>   
         </div>
-      ))}
-
+        ))}
+      
       <div>
         <button onClick={() => pages.nextPages >= cards.length + 20 ? alert('This is the last page') : setPages(prev => ({previous: prev.previous + 20, nextPages: prev.nextPages + 20 }))}> Next </button>
         <button onClick={() => pages.previous === 0 ? alert('This is the first page') : setPages(prev => ({previous: prev.previous - 20, nextPages: prev.nextPages - 20 }))}> Previous </button>

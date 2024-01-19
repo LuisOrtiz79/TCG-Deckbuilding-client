@@ -6,8 +6,8 @@ import { AuthContext } from '../context/auth.context';
 
 const CreateDeck = ({ setIsCreating }) => {
   const { getUser } = useContext(AuthContext);
-
   const userId = getUser();
+  const navigate = useNavigate();
 
   const [newDeck, setNewDeck] = useState({
     name: '',
@@ -15,8 +15,6 @@ const CreateDeck = ({ setIsCreating }) => {
     game: '',
     cards: []
   });
-
-  const navigate = useNavigate();
 
   const handleTextInput = (e) => {
     setNewDeck((prev) => ({...prev, [e.target.name]: e.target.value}));
@@ -51,6 +49,7 @@ const CreateDeck = ({ setIsCreating }) => {
   return (
     <div className='createDeck'>
       <h2>Create Deck</h2>
+
       <form onSubmit={handleSubmit} className='formContainer'>
         <label>
           Deck Name
@@ -70,7 +69,9 @@ const CreateDeck = ({ setIsCreating }) => {
         </label>
 
         <button type='submit'>Create Deck</button>
-      </form>      
+      </form>
+
+      <button onClick={() => setIsCreating(false)}>Hide</button>  
     </div>
   );
 };

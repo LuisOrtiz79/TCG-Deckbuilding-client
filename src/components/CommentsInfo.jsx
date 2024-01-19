@@ -7,11 +7,12 @@ import placeHolerImage from '../assets/cardBox.jpg';
 
 const CommentInfo = () => {
   const [decks, setDecks] = useState([]);
-  const [userDecks, setUserDecks] = useState([])
+  const [userDecks, setUserDecks] = useState([]);
   const { getUser } = useContext(AuthContext);
   
   const userId = getUser();
 
+  // Get the decks that correspond to the user
   const getUserDecks = () => {
     if(userId) {
       axios
@@ -23,6 +24,7 @@ const CommentInfo = () => {
     }
   }
 
+  // Get all the decks
   const getDecks = () => {
     axios
       .get(`${SERVER_URL}/decks`)
@@ -37,6 +39,7 @@ const CommentInfo = () => {
     getUserDecks();
   }, []);
 
+  // Filter the decks that don't have the same id as the user
   let filtered = decks.filter((deck) => deck.user._id !== userId);
 
   return (
@@ -45,43 +48,42 @@ const CommentInfo = () => {
         <h2>All Decks:</h2>
         
         <div>
-            {decks && 
-              filtered.map((deck, index) => {
-                return(
-                  <div key={index}>
-                    <Link to={`/mycomments/${deck._id}`}>
-                      <div>
-                        <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        <span>{deck.name}</span>
-                      </div>
-                    </Link>
-                  </div>
-                );
-            })}
-          </div>
+          {decks && 
+            filtered.map((deck, index) => {
+              return(
+                <div key={index}>
+                  <Link to={`/mycomments/${deck._id}`}>
+                    <div>
+                      <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                      <span>{deck.name}</span>
+                    </div>
+                  </Link>
+                </div>
+              );
+          })}
+        </div>
       </div>
 
       <div>
         <h2>My Decks:</h2>
 
         <div>
-            {userDecks && 
-              userDecks.map((deck, index) => {
-                return(
-                  <div key={index}>
-                    <Link to={`/comments/${deck._id}`}>
-                      <div>
-                        <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                        <span>{deck.name}</span>
-                      </div>
-                    </Link>
-                  </div>
-                )
-            })}
-          </div>
+          {userDecks && 
+            userDecks.map((deck, index) => {
+              return(
+                <div key={index}>
+                  <Link to={`/comments/${deck._id}`}>
+                    <div>
+                      <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                      <span>{deck.name}</span>
+                    </div>
+                  </Link>
+                </div>
+              )
+          })}
+        </div>
       </div>
     </>
-    
   );
 };
 

@@ -30,6 +30,7 @@ const AllDecks = () => {
     }
   }, [userId]);
 
+  // With the id it deletes the corresponding deck
   const handleDelete = (deckId) => {
     setDecks((prevDecks) => prevDecks.filter((deck) => deck._id !== deckId));
     axios
@@ -41,6 +42,7 @@ const AllDecks = () => {
     navigate('/');
   };
 
+  // With the id it finds the deck
   const handleUpdate = (deckId) => {
     axios
       .get(`${SERVER_URL}/decks/${deckId}`)
@@ -52,6 +54,7 @@ const AllDecks = () => {
     setIsEditing(true);
   };
 
+  // With the id it updates the corresponding deck
   const editDeck = (e) => {
     e.preventDefault();
 
@@ -76,25 +79,26 @@ const AllDecks = () => {
 
   return (
     <>{ !isEditing ?
-        <div className='deckContainer'>
-          {decks && 
-            decks.map((deck, index) => {
-              return(
-                <div key={index}>
-                  <Link to={`/decks/${deck._id}`}>
-                    <div className='decks'>
-                      <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                      <span>{deck.name}</span>
-                    </div>
-                  </Link>
-                  <button onClick={() => handleUpdate(deck._id)}>Edit</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
-                </div>
-              )
-          })}
-        </div>
+      <div className='deckContainer'>
+        {decks && 
+          decks.map((deck, index) => {
+            return(
+              <div key={index}>
+                <Link to={`/decks/${deck._id}`}>
+                  <div className='decks'>
+                    <img src={placeHolerImage} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                    <span>{deck.name}</span>
+                  </div>
+                </Link>
+                <button onClick={() => handleUpdate(deck._id)}>Edit</button> <button onClick={() => handleDelete(deck._id)}>Delete</button>
+              </div>
+            )
+        })}
+      </div>
       :
       <div>
         <h2>Update Deck</h2>
+        
         <form onSubmit={editDeck} className='formContainer'>
           <label>
             Deck Name

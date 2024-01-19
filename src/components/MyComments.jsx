@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../services/SERVER_URL';
 import { AuthContext } from '../context/auth.context';
@@ -17,6 +17,7 @@ const MyComments = () => {
   const { getUser } = useContext(AuthContext);
   
   const userId = getUser();
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem('authToken');
 
   const getCommentInfo = () =>{
@@ -79,80 +80,88 @@ const MyComments = () => {
       .catch((error) => console.log(error));
   }
 
-  const handleUpdate = (CommentId) => {} //FIx tomorrow
+  const handleUpdate = (CommentId) => {} //FIx later on
 
   return (
-    <div>{!isCreating ? (
-      <>
-        {deck && (
-            <div>
-                <h2>Deck: {deck.name}</h2>
-            
-                <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-                <div className='mainContainer'>
-                  {deck.main && deck.main.map((card, index) => {
-                      return (
-                          <div key={index}>
-                              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                          </div>
-                      )
-                  })}
-                </div>
-                
-            
-                <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-                <div className='extraContainer'>
-                  {deck.extra && deck.extra.map((card, index) => {
-                      return (
-                          <div key={index}>
-                              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                          </div>
-                      )
-                  })}
-                </div>
-                
-            
-                <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-                <div className='sideContainer'>
-                  {deck.side && deck.side.map((card, index) => {
-                      return (
-                          <div key={index}>
-                              <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                          </div>
-                      )
-                  })}
-                </div>
-            </div>
-        )}
-
+    <div>
+      {deck && (
         <div>
-            <h2>User Comments:</h2>
-            {comments.map((comment) => {
-                return (
-                    <div key={comment._id}>
-                        <p>{comment.user.username}</p>
-                        <p>{comment.comments}</p>
-                        <button onClick={() => handleDelete(comment._id)}>Update</button>
-                        <button onClick={() => handleUpdate(comment._id)}>Delete</button>
-                    </div>
-                )
+          <h2>Deck: {deck.name}</h2>
+            
+          <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
+          
+          <div className='mainContainer'>
+            {deck.main && deck.main.map((card, index) => {
+              return (
+                <div key={index}>
+                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                </div>
+              )
             })}
-        </div>
+          </div>
+                  
+          <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+          
+          <div className='extraContainer'>
+            {deck.extra && deck.extra.map((card, index) => {
+              return (
+                <div key={index}>
+                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                </div>
+              )
+            })}
+          </div>
+                  
+          <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+          
+          <div className='sideContainer'>
+            {deck.side && deck.side.map((card, index) => {
+              return (
+                <div key={index}>
+                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                </div>
+              )
+            })}
+          </div>
 
+          <button onClick={() => navigate(-1)}>Back</button>
+        </div>
+      )}
+
+      <div>
+        <h2>User Comments:</h2>
+        
+        <div className='commentContainer'>
+          {comments.map((comment) => {
+            return (
+              <div key={comment._id}>
+                <p>{comment.user.username}: {comment.comments}</p>
+                
+                <button onClick={() => handleUpdate(comment._id)}>Edit</button>
+                <button onClick={() => handleDelete(comment._id)}>Delete</button>
+              </div>
+            )
+          })}
+        </div>      
+      </div>
+
+      {!isCreating ? (
         <button onClick={() => setIsCreating(true)}>Create comment</button>
-      </>
-      ) : (
-        <div>
+        ) : (
+          <div >
             <h2>Add Comment:</h2>
+            
             <form onSubmit={handleSubmit} className='formContainer'>
-                <label>
-                    Comments
-                    <textarea name="comments" value={addComments.comments} onChange={handleTextInput} />
-                </label>
-
-                <button type="submit">Submit</button>
+              <label>
+                Comments
+                <textarea name="comments" value={addComments.comments} onChange={handleTextInput} />
+              </label>
+    
+              <button type="submit">Submit</button>
             </form>
-        </div>
+            
+            <button onClick={() => setIsCreating(false)}>Hide</button>
+          </div>
       )}
     </div>
   );
