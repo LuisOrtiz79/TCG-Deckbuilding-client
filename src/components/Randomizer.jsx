@@ -86,7 +86,7 @@ const Randomizer = () => {
                 <div data-aos='fade-down'>
                     <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
                     <p>{card.name}</p>
-                    <p>{card.type} {card.race}</p>
+                    <p>{card.type} | {card.race}</p>
                     <p>{card.desc}</p>
                 </div>
             )}

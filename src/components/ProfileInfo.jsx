@@ -127,9 +127,11 @@ const ProfileInfo = () => {
             <br />
 
             <button type='submit'>Update</button>
-          </form>
 
-          <button onClick={() => setIsEditing(false)}>Back</button>
+            <br />
+
+            <button onClick={() => setIsEditing(false)}>Back</button>
+          </form>
         </>
       }
       </>
