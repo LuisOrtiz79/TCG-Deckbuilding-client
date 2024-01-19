@@ -81,57 +81,59 @@ const ProfileInfo = () => {
   };
   
   return (
-    <>{ !isEditing ?
-      <div className='userProfile'>
-        {userProfile && (
-          <div className='userContainer'>
-            <img src={userProfile.photo} alt='profile-photo' width={'100vw'} height={'100vh'} />
-            <div>
-              <p>Username: {userProfile.username}</p>
-              <p>Email: {userProfile.email}</p>
-              <button onClick={() => handleUpdate()}>Edit</button>
+    <div className='profile'>
+      <>{ !isEditing ?
+        <div className='userProfile'>
+          {userProfile && (
+            <div className='userContainer'>
+              <img src={userProfile.photo} alt='profile-photo' width={'200vw'} height={'200vh'} />
+              <div>
+                <p>Username: {userProfile.username}</p>
+                <p>Email: {userProfile.email}</p>
+                <button onClick={() => handleUpdate()}>Edit</button>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-      :
-      <>
-        <form onSubmit={editUser}>
-          <label>
-            Username
-            <input name='username' type='text' value={editedUser.username} onChange={(e) => handleTextInput(e)} />
-          </label>
+          )}
+        </div>
+        :
+        <>
+          <form onSubmit={editUser}>
+            <label>
+              Username
+              <input name='username' type='text' value={editedUser.username} onChange={(e) => handleTextInput(e)} />
+            </label>
 
-          <br />
+            <br />
 
-          <label>
-            Email
-            <input name='email' type='email' value={editedUser.email} onChange={(e) => handleTextInput(e)} />
-          </label>
+            <label>
+              Email
+              <input name='email' type='email' value={editedUser.email} onChange={(e) => handleTextInput(e)} />
+            </label>
 
-          <br />
+            <br />
 
-          <label>
-            Password
-            <input name='password' type='password' value={editedUser.password} onChange={(e) => handleTextInput(e)} />
-          </label>
+            <label>
+              Password
+              <input name='password' type='password' value={editedUser.password} onChange={(e) => handleTextInput(e)} />
+            </label>
 
-          <br />
+            <br />
 
-          <label>
-            Photo
-            <input name='photo' type='text' value={editedUser.photo} onChange={(e) => handleTextInput(e)} />
-          </label>
+            <label>
+              Photo
+              <input name='photo' type='text' value={editedUser.photo} onChange={(e) => handleTextInput(e)} />
+            </label>
 
-          <br />
+            <br />
 
-          <button type='submit'>Update</button>
-        </form>
+            <button type='submit'>Update</button>
+          </form>
 
-        <button onClick={() => setIsEditing(false)}>Back</button>
+          <button onClick={() => setIsEditing(false)}>Back</button>
+        </>
+      }
       </>
-    }
-    </>
+    </div>
   );
 };
 

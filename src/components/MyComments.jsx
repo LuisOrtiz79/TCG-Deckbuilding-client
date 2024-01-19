@@ -83,53 +83,55 @@ const MyComments = () => {
   const handleUpdate = (CommentId) => {} //FIx later on
 
   return (
-    <div>
-      {deck && (
-        <div>
-          <h2>Deck: {deck.name}</h2>
+    <div className='commentDivider'>
+      <div className='CommentDeck'>
+        {deck && (
+          <div>
+            <h2>Deck: {deck.name}</h2>
+              
+            <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
             
-          <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-          
-          <div className='mainContainer'>
-            {deck.main && deck.main.map((card, index) => {
-              return (
-                <div key={index}>
-                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                </div>
-              )
-            })}
-          </div>
-                  
-          <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
-          
-          <div className='extraContainer'>
-            {deck.extra && deck.extra.map((card, index) => {
-              return (
-                <div key={index}>
-                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                </div>
-              )
-            })}
-          </div>
-                  
-          <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
-          
-          <div className='sideContainer'>
-            {deck.side && deck.side.map((card, index) => {
-              return (
-                <div key={index}>
-                  <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                </div>
-              )
-            })}
-          </div>
+            <div className='mainContainer'>
+              {deck.main && deck.main.map((card, index) => {
+                return (
+                  <div key={index}>
+                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                  </div>
+                )
+              })}
+            </div>
+                    
+            <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+            
+            <div className='extraContainer'>
+              {deck.extra && deck.extra.map((card, index) => {
+                return (
+                  <div key={index}>
+                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                  </div>
+                )
+              })}
+            </div>
+                    
+            <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+            
+            <div className='sideContainer'>
+              {deck.side && deck.side.map((card, index) => {
+                return (
+                  <div key={index}>
+                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                  </div>
+                )
+              })}
+            </div>
 
-          <button onClick={() => navigate(-1)}>Back</button>
-        </div>
-      )}
+            <button onClick={() => navigate(-1)}>Back</button>
+          </div>
+        )}
+      </div>
 
-      <div>
-        <h2>User Comments:</h2>
+      <div className='comments'>
+        <h2>Users Comments:</h2>
         
         <div className='commentContainer'>
           {comments.map((comment) => {
@@ -143,26 +145,26 @@ const MyComments = () => {
             )
           })}
         </div>      
-      </div>
 
-      {!isCreating ? (
-        <button onClick={() => setIsCreating(true)}>Create comment</button>
-        ) : (
-          <div >
-            <h2>Add Comment:</h2>
-            
-            <form onSubmit={handleSubmit} className='formContainer'>
-              <label>
-                Comments
-                <textarea name="comments" value={addComments.comments} onChange={handleTextInput} />
-              </label>
-    
-              <button type="submit">Submit</button>
-            </form>
-            
-            <button onClick={() => setIsCreating(false)}>Hide</button>
-          </div>
-      )}
+        {!isCreating ? (
+          <button onClick={() => setIsCreating(true)}>Create comment</button>
+          ) : (
+            <div >
+              <h2>Add Comment:</h2>
+              
+              <form onSubmit={handleSubmit} className='formContainer'>
+                <label>
+                  Comments
+                  <textarea name="comments" value={addComments.comments} onChange={handleTextInput} />
+                </label>
+      
+                <button type="submit">Submit</button>
+              </form>
+              
+              <button onClick={() => setIsCreating(false)}>Hide</button>
+            </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -55,9 +55,11 @@
   justify-content: space-evenly;
   z-index: 999;
   width: 100%;
-  border-bottom: 1px solid black;
+  border: 0.5px solid black;
+  border-radius: 25px;
   position: relative;
   padding: 0;
+  background-color: lightgray;
 }
 
 .navbar a {
@@ -130,6 +132,18 @@
   flex-wrap: wrap;
 }
 
+.mainContainer {
+  background-color: lightblue;
+}
+
+.extraContainer {
+  background-color: lightcoral;
+}
+
+.sideContainer {
+  background-color: lightgreen;
+}
+
 .cards {
   margin: 0.5vw;
   display: flex;
@@ -179,13 +193,44 @@
 }
 
 /* user page css */
-.userProfile{
+.profile {
+  display: flex;
+  justify-content: center;
+}
+
+.userProfile
+{
   border: 1px solid black;
-  width: 20vw;
+  border-radius: 20px;
+  width: 35vw;
 }
 
 .userContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 2%;
+}
+
+.userContainer p {
+  font-size: large;
+}
+
+.userContainer img {
+  border-radius: 50px;
+}
+
+
+/* comments page css */
+.commentDivider {
+  display: flex;
+  flex-direction: row;
+}
+
+.commentDeck {
+  width: 75%;
+}
+
+.comments {
+  width: 25%;
 }

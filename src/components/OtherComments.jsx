@@ -27,55 +27,57 @@ const OtherComments = () => {
     }, []);
   
     return (
-      <div>
-        {deck && (
-            <div>
-                <h2>Deck: {deck.name}</h2>
-              
-                <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
-
-                <div className='mainContainer'>
-                    {deck.main && deck.main.map((card, index) => {
-                        return (
-                            <div key={index}>
-                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                            </div>
-                        )
-                    })}
-                </div>
+      <div className='commentDivider'>
+        <div className='commentDeck'>
+            {deck && (
+                <div>
+                    <h2>Deck: {deck.name}</h2>
                 
-              
-                <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
+                    <h3>Main Deck: {`(${deck.main?.length} : 60)`}</h3>
 
-                <div className='extraContainer'>
-                    {deck.extra && deck.extra.map((card, index) => {
-                        return (
-                            <div key={index}>
-                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                            </div>
-                        )
-                    })}
-                </div>
+                    <div className='mainContainer'>
+                        {deck.main && deck.main.map((card, index) => {
+                            return (
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    
                 
-              
-                <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+                    <h3>Extra Deck: {`(${deck.extra?.length} : 15)`}</h3>
 
-                <div className='sideContainer'>
-                    {deck.side && deck.side.map((card, index) => {
-                        return (
-                            <div key={index}>
-                                <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
-                            </div>
-                        )
-                    })}
-                </div>
+                    <div className='extraContainer'>
+                        {deck.extra && deck.extra.map((card, index) => {
+                            return (
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    
                 
-                <button onClick={() => navigate(-1)}>Back</button>
-            </div>
-        )}
+                    <h3>Side Deck: {`(${deck.side?.length} : 15)`}</h3>
+
+                    <div className='sideContainer'>
+                        {deck.side && deck.side.map((card, index) => {
+                            return (
+                                <div key={index}>
+                                    <img src={card.card_images[0].image_url} alt='cardBox' width={'100vw'} height={'100vh'}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    
+                    <button onClick={() => navigate(-1)}>Back</button>
+                </div>
+            )}
+        </div>
   
-        <div>
-            <h2>User Comments:</h2>
+        <div className='comments'>
+            <h2>Users Comments:</h2>
 
             <div className='commentContainer'>
                 {comments.map((comment) => (
